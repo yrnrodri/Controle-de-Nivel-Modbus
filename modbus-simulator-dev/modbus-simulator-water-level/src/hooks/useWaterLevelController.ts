@@ -63,7 +63,7 @@ export function useWaterLevelController({
     return next;
   }, []);
 
-  /** Envia (simula) um comando FC 6 — Write Single Register para a bomba */
+  // Envia um comando FC 6 — Write Single Register para a bomba
   const writePumpSpeed = useCallback((speed: number) => {
     const id = nextTxId();
     const frame = createWriteRegisterFrame(MODBUS_UNIT_ID, ADDR_PUMP_SPEED, speed, id);
@@ -76,7 +76,7 @@ export function useWaterLevelController({
     });
   }, [addLog, nextTxId]);
 
-  /** Envia (simula) um comando FC 6 — Write Single Register para o setpoint */
+  // Envia um comando FC 6 para o setpoint
   const writeSetpoint = useCallback((value: number) => {
     const id = nextTxId();
     const frame = createWriteRegisterFrame(MODBUS_UNIT_ID, ADDR_SETPOINT, value, id);
@@ -110,7 +110,7 @@ export function useWaterLevelController({
       let nextPumpActive = currentPumpActive;
 
       if (!currentPumpActive && currentLevel <= currentSetpoint - HYSTERESIS) {
-        // Nível caiu abaixo do setpoint menos histerese → liga bomba
+        // Nível caiu abaixo do setpoint menos histerese -> liga bomba
         nextPumpActive = true;
         writePumpSpeed(currentPumpSpeed);
         setPumpActive(true);
@@ -142,7 +142,7 @@ export function useWaterLevelController({
         const levelId = nextTxId();
         addLog({
           type: 'READ_LEVEL',
-          frame: createReadInputRegisterFrame(MODBUS_UNIT_ID, ADDR_TANK_LEVEL, newLevel, levelId),
+          frame: createReadInputRegisterFrame(MODBUS_UNIT_ID, newLevel, levelId),
           description: `Leitura de nível do tanque`,
           value: Math.round(newLevel * 10) / 10,
           unit: '%',
@@ -151,7 +151,7 @@ export function useWaterLevelController({
         const flowId = nextTxId();
         addLog({
           type: 'READ_FLOW',
-          frame: createReadInputRegisterFrame(MODBUS_UNIT_ID, ADDR_FLOW_RATE, newFlowRate, flowId),
+          frame: createReadInputRegisterFrame(MODBUS_UNIT_ID, newFlowRate, flowId),
           description: `Leitura de vazão de entrada`,
           value: newFlowRate,
           unit: 'm³/h',

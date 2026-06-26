@@ -1,13 +1,13 @@
 import React from 'react';
 import { MdHelpOutline } from 'react-icons/md';
-import { FUNCTION_CODE_DESCRIPTIONS } from '../types/modbus';
+import { FUNCTION_CODE_DESCRIPTIONS } from '../../types/modbus';
 
 export function FunctionCodeHelp() {
   return (
     <div className="glass-effect p-4 lg:p-6">
       <h3 className="text-lg lg:text-xl font-semibold mb-4 flex items-center gap-2 text-gray-800">
         <MdHelpOutline size={20} className="text-blue-600" />
-        Function Code Reference
+        Referência de Códigos de Função
       </h3>
       <div className="overflow-x-auto -mx-4 lg:mx-0">
         <div className="min-w-[768px] lg:w-full rounded-xl border border-gray-200 shadow-sm">
@@ -15,13 +15,13 @@ export function FunctionCodeHelp() {
             <thead>
               <tr className="bg-gray-50">
                 <th className="w-20 px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Code
+                  Código
                 </th>
                 <th className="w-40 px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Name
+                  Nome
                 </th>
                 <th className="px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Description
+                  Descrição
                 </th>
               </tr>
             </thead>
@@ -37,11 +37,11 @@ export function FunctionCodeHelp() {
                   <td className="px-3 py-2 text-sm text-gray-600">
                     <div className="space-y-1">
                       <div>
-                        <span className="font-medium text-gray-700">Purpose: </span>
+                        <span className="font-medium text-gray-700">Propósito: </span>
                         <span>{description.purpose}</span>
                       </div>
                       <div>
-                        <span className="font-medium text-gray-700">Usage: </span>
+                        <span className="font-medium text-gray-700">Uso: </span>
                         <span>{description.usage}</span>
                       </div>
                     </div>

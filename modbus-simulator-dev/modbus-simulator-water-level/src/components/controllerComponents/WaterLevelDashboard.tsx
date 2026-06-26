@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdWaterDrop, MdWaves } from 'react-icons/md';
-import { useWaterLevelController } from '../hooks/useWaterLevelController';
+import { useWaterLevelController } from '../../hooks/useWaterLevelController';
 import { ControllerPanel } from './ControllerPanel';
 import { LiveSensorCard } from './LiveSensorCard';
 
@@ -30,8 +30,8 @@ export function WaterLevelDashboard({ shouldStop }: WaterLevelDashboardProps) {
 
   // Filtra os logs por categoria para cada componente filho
   const controlLogs = logs.filter((l) => l.type === 'WRITE_PUMP' || l.type === 'WRITE_SETPOINT' || l.type === 'ALARM');
-  const levelLogs   = logs.filter((l) => l.type === 'READ_LEVEL'  || l.type === 'WRITE_SETPOINT' || l.type === 'ALARM');
-  const flowLogs    = logs.filter((l) => l.type === 'READ_FLOW'   || l.type === 'WRITE_PUMP');
+  const levelLogs = logs.filter((l) => l.type === 'READ_LEVEL' || l.type === 'WRITE_SETPOINT' || l.type === 'ALARM');
+  const flowLogs = logs.filter((l) => l.type === 'READ_FLOW' || l.type === 'WRITE_PUMP');
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -54,12 +54,12 @@ export function WaterLevelDashboard({ shouldStop }: WaterLevelDashboardProps) {
       {/* Card 2: Sensor de Nível de Água (FC 4, endereço 10) */}
       <LiveSensorCard
         sensorId="water-level"
-        label="Water Level Sensor"
+        label="Sensor de Nível de Água"
         icon={MdWaterDrop}
-        parameterName="Tank Level"
+        parameterName="Nível do Tanque"
         value={level}
         unit="%"
-        unitId={4}
+        unitId={1}
         address={10}
         functionCode={4}
         min={0}
@@ -73,12 +73,12 @@ export function WaterLevelDashboard({ shouldStop }: WaterLevelDashboardProps) {
       {/* Card 3: Sensor de Vazão da Bomba (FC 4, endereço 11) */}
       <LiveSensorCard
         sensorId="pump-flow"
-        label="Pump Flow Sensor"
+        label="Sensor de Vazão da Bomba"
         icon={MdWaves}
-        parameterName="Flow Rate"
+        parameterName="Vazão"
         value={flowRate}
         unit="m³/h"
-        unitId={4}
+        unitId={1}
         address={11}
         functionCode={4}
         min={2}

@@ -7,8 +7,8 @@ export function Footer() {
         <div className="flex flex-col items-center space-y-3">
           {/* Name and Title */}
           <div className="text-center">
-            <h3 className="text-base font-medium">Tuna Sakar</h3>
-            <p className="text-sm text-blue-200/90">DevOps & Platform Engineer, IIoT Enthusiast</p>
+            <h3 className="text-base font-medium">João Rodrigo, Juan de Souza & Matheus de Castro (inspirados por: Tuna Sakar)</h3>
+            <p className="text-sm text-blue-200/90">Graduandos de Engenharia de Computação - UFC</p>
           </div>
 
           {/* Slogan with shimmer effect */}

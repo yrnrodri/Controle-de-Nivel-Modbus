@@ -45,7 +45,7 @@ export interface TankPhysics {
 }
 
 export const DEFAULT_TANK_PHYSICS: TankPhysics = {
-  maxVolume: 1000,
+  maxVolume: 2.8,
   drainRatePerSecond: 0.05,   // Tanque perde ~3%/min passivamente
   maxFillRatePerSecond: 0.4,  // A 100% de velocidade, enche ~24%/min
 };

@@ -127,12 +127,10 @@ export function createWriteRegisterFrame(
  */
 export function createReadInputRegisterFrame(
   unitId: number,
-  address: number,
   value: number,
   txId: number
 ): string {
   const scaledValue = Math.max(0, Math.round(value * 10));
-  const registerAddress = Math.max(0, address - 1);
   const byteCount = 2;
   const pduLength = 2 + 1 + byteCount;
 

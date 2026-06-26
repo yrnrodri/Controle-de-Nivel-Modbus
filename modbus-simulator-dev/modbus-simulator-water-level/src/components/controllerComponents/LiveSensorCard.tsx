@@ -1,10 +1,10 @@
 import React from 'react';
 import { IconType } from 'react-icons';
 import { MdTag, MdSwapVert } from 'react-icons/md';
-import { Terminal } from './Terminal';
-import { LogEntry } from '../types/modbus';
-import { ControllerLogEntry } from '../types/controller';
-import { FUNCTION_CODE_DESCRIPTIONS } from '../types/modbus';
+import { Terminal } from '../Terminal';
+import { LogEntry } from '../../types/modbus';
+import { ControllerLogEntry } from '../../types/controller';
+import { FUNCTION_CODE_DESCRIPTIONS } from '../../types/modbus';
 
 interface LiveSensorCardProps {
   /** ID único do sensor (usado para aria e keys) */
@@ -66,7 +66,8 @@ export function LiveSensorCard({
   onExportLogs,
 }: LiveSensorCardProps) {
   const terminalLogs = toTerminalLogs(logs, unitId, parameterName, unit);
-  const fcInfo = FUNCTION_CODE_DESCRIPTIONS[functionCode];
+  // const fcInfo = FUNCTION_CODE_DESCRIPTIONS[functionCode];
+  const fcInfo = FUNCTION_CODE_DESCRIPTIONS[1];
 
   // Percentual do valor atual dentro do range (para a barra de progresso)
   const progressPct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
@@ -75,7 +76,7 @@ export function LiveSensorCard({
     <div className="sensor-card p-4 lg:p-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Coluna esquerda — informações do sensor */}
-        <div className="flex flex-col h-[600px]">
+        <div className="flex flex-col min-h-[600px]">
           {/* Título */}
           <div className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-blue-100 rounded-lg">
@@ -92,7 +93,7 @@ export function LiveSensorCard({
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-blue-700">
                     <MdSwapVert size={20} />
-                    <span className="text-sm font-semibold tracking-wide uppercase">Range</span>
+                    <span className="text-sm font-semibold tracking-wide uppercase">Intervalo</span>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-2xl font-medium text-gray-800">{min} – {max}</span>
@@ -150,9 +151,9 @@ export function LiveSensorCard({
             {/* Configuração Modbus estática (sem edição, pois é controlada automaticamente) */}
             <div className="grid grid-cols-3 gap-3 text-sm">
               {[
-                { label: 'Function Code', value: `0${functionCode.toString(16).toUpperCase()} — FC ${functionCode}` },
-                { label: 'Register Addr.', value: String(address) },
-                { label: 'Registers', value: '1' },
+                { label: 'Código de Função', value: `0${functionCode.toString(16).toUpperCase()} — FC ${functionCode}` },
+                { label: 'Número de Registradores', value: '1' },
+                { label: 'Endereço do Registrador', value: String(address) },
               ].map((item) => (
                 <div key={item.label} className="bg-gray-50 border border-gray-200 rounded-lg p-2.5">
                   <p className="text-[10px] text-gray-400 uppercase font-semibold mb-0.5">{item.label}</p>
@@ -172,10 +173,10 @@ export function LiveSensorCard({
                 </div>
                 <div className="space-y-2 text-sm">
                   <p className="text-blue-800">
-                    <span className="font-medium">Purpose:</span> {fcInfo.purpose}
+                    <span className="font-medium">Propósito:</span> {fcInfo.purpose}
                   </p>
                   <p className="text-blue-800">
-                    <span className="font-medium">Usage:</span> {fcInfo.usage}
+                    <span className="font-medium">Uso:</span> {fcInfo.usage}
                   </p>
                 </div>
               </div>
@@ -192,7 +193,7 @@ export function LiveSensorCard({
         </div>
 
         {/* Coluna direita — terminal de leituras */}
-        <div className="h-[600px]">
+        <div className="h-[645px]">
           <Terminal
             logs={terminalLogs}
             onClear={onClearLogs}

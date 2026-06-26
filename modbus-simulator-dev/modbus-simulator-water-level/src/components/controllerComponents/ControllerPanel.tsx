@@ -2,7 +2,7 @@ import React from 'react';
 import { MdPlayArrow, MdStop, MdSettings } from 'react-icons/md';
 import { TankVisual } from './TankVisual';
 import { PumpControls } from './PumpControls';
-import { ControllerLogEntry } from '../types/controller';
+import { ControllerLogEntry } from '../../types/controller';
 
 interface ControllerPanelProps {
   level: number;
@@ -47,9 +47,8 @@ export function ControllerPanel({
         </div>
         <div className="flex items-center gap-2">
           <div
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              isRunning ? 'bg-green-500 animate-pulse' : 'bg-gray-300'
-            }`}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${isRunning ? 'bg-green-500 animate-pulse' : 'bg-gray-300'
+              }`}
           />
           <span className="text-xs font-medium text-gray-500">
             {isRunning ? 'ATIVO' : 'PARADO'}
@@ -84,11 +83,10 @@ export function ControllerPanel({
               onClick={onToggle}
               className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm
                           shadow-md active:scale-95 transition-all duration-200 focus:outline-none
-                          focus:ring-2 focus:ring-offset-2 ${
-                            isRunning
-                              ? 'bg-red-500 hover:bg-red-600 text-white focus:ring-red-400'
-                              : 'bg-green-500 hover:bg-green-600 text-white focus:ring-green-400'
-                          }`}
+                          focus:ring-2 focus:ring-offset-2 ${isRunning
+                  ? 'bg-red-500 hover:bg-red-600 text-white focus:ring-red-400'
+                  : 'bg-green-500 hover:bg-green-600 text-white focus:ring-green-400'
+                }`}
               aria-pressed={isRunning}
             >
               {isRunning

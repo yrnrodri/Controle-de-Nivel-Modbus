@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ModbusSimulator } from './components/ModbusSimulator';
+import { ModbusSimulator } from './components/controllerComponents/ModbusSimulator';
 import { Footer } from './components/Footer';
 
 function App() {
