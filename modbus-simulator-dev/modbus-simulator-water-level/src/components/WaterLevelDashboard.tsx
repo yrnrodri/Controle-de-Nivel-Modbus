@@ -29,9 +29,9 @@ export function WaterLevelDashboard({ shouldStop }: WaterLevelDashboardProps) {
   } = useWaterLevelController({ isRunning });
 
   // Filtra os logs por categoria para cada componente filho
-  const controlLogs = logs.filter((l) => l.type === 'WRITE_PUMP' || l.type === 'ALARM');
-  const levelLogs   = logs.filter((l) => l.type === 'READ_LEVEL'  || l.type === 'ALARM');
-  const flowLogs    = logs.filter((l) => l.type === 'READ_FLOW');
+  const controlLogs = logs.filter((l) => l.type === 'WRITE_PUMP' || l.type === 'WRITE_SETPOINT' || l.type === 'ALARM');
+  const levelLogs   = logs.filter((l) => l.type === 'READ_LEVEL'  || l.type === 'WRITE_SETPOINT' || l.type === 'ALARM');
+  const flowLogs    = logs.filter((l) => l.type === 'READ_FLOW'   || l.type === 'WRITE_PUMP');
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -81,8 +81,8 @@ export function WaterLevelDashboard({ shouldStop }: WaterLevelDashboardProps) {
         unitId={4}
         address={11}
         functionCode={4}
-        min={0}
-        max={100}
+        min={2}
+        max={40}
         logs={flowLogs}
         isRunning={isRunning}
         onClearLogs={clearLogs}

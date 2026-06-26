@@ -8,6 +8,7 @@ const MODBUS_UNIT_ID = 4;
 const ADDR_TANK_LEVEL = 10;  // Input Register: nível do tanque (FC 4)
 const ADDR_FLOW_RATE = 11;   // Input Register: vazão atual (FC 4)
 const ADDR_PUMP_SPEED = 20;  // Holding Register: velocidade da bomba (FC 6)
+const ADDR_SETPOINT = 21;    // Holding Register: setpoint de nível (FC 6)
 
 // Histerese para evitar ligar/desligar em loop na borda do setpoint
 const HYSTERESIS = 2; // %
@@ -69,8 +70,21 @@ export function useWaterLevelController({
     addLog({
       type: 'WRITE_PUMP',
       frame,
-      description: speed > 0 ? `Bomba ligada — Velocidade: ${speed}%` : 'Bomba desligada',
+      description: 'Escrita de velocidade da bomba',
       value: speed,
+      unit: '%',
+    });
+  }, [addLog, nextTxId]);
+
+  /** Envia (simula) um comando FC 6 — Write Single Register para o setpoint */
+  const writeSetpoint = useCallback((value: number) => {
+    const id = nextTxId();
+    const frame = createWriteRegisterFrame(MODBUS_UNIT_ID, ADDR_SETPOINT, value, id);
+    addLog({
+      type: 'WRITE_SETPOINT',
+      frame,
+      description: 'Escrita de setpoint de nível',
+      value,
       unit: '%',
     });
   }, [addLog, nextTxId]);
@@ -180,15 +194,26 @@ export function useWaterLevelController({
     const clamped = Math.max(5, Math.min(100, value));
     setSetpoint(clamped);
     setpointRef.current = clamped;
-  }, []);
+    if (isRunning) {
+      writeSetpoint(clamped);
+    }
+  }, [isRunning, writeSetpoint]);
+
+  // Registra a escrita inicial do setpoint no registrador holding ao iniciar o controlador
+  useEffect(() => {
+    if (isRunning) {
+      writeSetpoint(setpointRef.current);
+    }
+  }, [isRunning, writeSetpoint]);
 
   const handlePumpSpeedChange = useCallback((delta: number) => {
-    setPumpSpeed((prev) => {
-      const next = Math.max(5, Math.min(100, prev + delta));
-      pumpSpeedRef.current = next;
-      return next;
-    });
-  }, []);
+    const next = Math.max(5, Math.min(100, pumpSpeedRef.current + delta));
+    setPumpSpeed(next);
+    pumpSpeedRef.current = next;
+    if (isRunning && pumpActiveRef.current) {
+      writePumpSpeed(next);
+    }
+  }, [isRunning, writePumpSpeed]);
 
   return {
     // Estado da simulação

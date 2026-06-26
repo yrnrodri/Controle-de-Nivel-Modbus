@@ -17,6 +17,7 @@ export type ControllerLogType =
   | 'READ_LEVEL'     // FC 4 — Leitura do nível (Input Register)
   | 'READ_FLOW'      // FC 4 — Leitura da vazão (Input Register)
   | 'WRITE_PUMP'     // FC 6 — Escrita da velocidade da bomba (Holding Register)
+  | 'WRITE_SETPOINT' // FC 6 — Escrita do setpoint (Holding Register)
   | 'ALARM';         // Alarme de limite atingido
 
 /** Entrada de log do controlador para exibição no terminal. */

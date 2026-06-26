@@ -3,7 +3,7 @@ import { ModbusSimulator } from './components/ModbusSimulator';
 import { Footer } from './components/Footer';
 
 function App() {
-  const [countdown, setCountdown] = useState(180);
+  const [countdown, setCountdown] = useState(360);
   const [shouldRefresh, setShouldRefresh] = useState(false);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function App() {
       setCountdown(prev => {
         if (prev <= 1) {
           setShouldRefresh(true);
-          return 180;
+          return 360;
         }
         return prev - 1;
       });
