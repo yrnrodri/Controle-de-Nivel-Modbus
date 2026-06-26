@@ -1,17 +1,3 @@
-/** Estado interno do controlador de nível de água. */
-export interface ControllerState {
-  /** Nível atual do tanque em percentual (0–100). */
-  level: number;
-  /** Vazão de entrada atual em m³/h (determinada pelo setpoint da bomba). */
-  flowRate: number;
-  /** Setpoint configurado pelo usuário em percentual (0–100). */
-  setpoint: number;
-  /** Velocidade atual da bomba em percentual (0–100). */
-  pumpSpeed: number;
-  /** Indica se a bomba está em operação. */
-  pumpActive: boolean;
-}
-
 /** Tipos de operação registrados no log do controlador. */
 export type ControllerLogType =
   | 'READ_LEVEL'     // FC 4 — Leitura do nível (Input Register)
