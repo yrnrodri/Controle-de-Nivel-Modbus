@@ -31,6 +31,7 @@ export const FUNCTION_CODES = {
   2: 'Read Discrete Inputs',
   3: 'Read Holding Registers',
   4: 'Read Input Registers',
+  6: 'Write Single Register',
   7: 'Read Exception Status'
 } as const;
 
@@ -65,6 +66,12 @@ export const FUNCTION_CODE_DESCRIPTIONS: Record<number, FunctionCodeDescription>
     purpose: 'Reads input registers, which are read-only and provide real-time sensor data.',
     usage: 'Used to get real-time data from sensors (e.g., live temperature readings).',
     code: '0x04'
+  },
+  6: {
+    name: 'Write Single Register',
+    purpose: 'Writes a value into a single Holding Register on the slave device.',
+    usage: 'Used to set control parameters such as pump speed, setpoint or valve position.',
+    code: '0x06'
   },
   7: {
     name: 'Read Exception Status',

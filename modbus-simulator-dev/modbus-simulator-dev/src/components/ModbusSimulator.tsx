@@ -1,7 +1,6 @@
 import React from 'react';
-import { SensorCard } from './SensorCard';
 import { FunctionCodeHelp } from './FunctionCodeHelp';
-import { SENSOR_TYPES } from '../types/sensors';
+import { WaterLevelDashboard } from './WaterLevelDashboard';
 import { Github, AlertTriangle, Clock } from 'lucide-react';
 
 interface ModbusSimulatorProps {
@@ -24,10 +23,10 @@ export function ModbusSimulator({ countdown, shouldRefresh }: ModbusSimulatorPro
   return (
     <div className="min-h-screen flex justify-center">
       <div className="max-w-[1200px] w-full p-4 lg:p-6 space-y-4 lg:space-y-6">
-        {/* Demo Environment Notice */}
+
+        {/* Aviso de ambiente demo */}
         <div className="bg-yellow-50 border-l-4 border-yellow-400 rounded-lg shadow-lg overflow-hidden">
           <div className="flex items-stretch">
-            {/* Main Content */}
             <div className="flex-grow p-4 flex items-center gap-3">
               <div className="flex-shrink-0 bg-yellow-100 p-2 rounded-full">
                 <AlertTriangle className="w-5 h-5 text-yellow-600" />
@@ -35,28 +34,22 @@ export function ModbusSimulator({ countdown, shouldRefresh }: ModbusSimulatorPro
               <div>
                 <h3 className="font-semibold text-yellow-800">Demo Environment Notice</h3>
                 <p className="text-sm text-yellow-700 mt-0.5">
-                  For stability and security reasons, all demo state is reset periodically. 
+                  For stability and security reasons, all demo state is reset periodically.
                   For production usage, please deploy your own instance.
                 </p>
               </div>
             </div>
 
-            {/* Divider */}
             {showTimer && (
               <>
-                <div className="w-px bg-yellow-200 my-4"></div>
-
-                {/* Timer Section */}
+                <div className="w-px bg-yellow-200 my-4" />
                 <div className="p-4 bg-yellow-100/50 flex items-center gap-3">
                   <div className="flex flex-col items-center">
                     <div className="flex items-center gap-2 text-yellow-800">
                       <Clock className={`w-4 h-4 ${isWarningTime ? 'animate-spin text-red-600' : ''}`} />
                       <span className="text-sm font-medium">Reset in</span>
                     </div>
-                    <div className={`
-                      font-mono font-bold text-lg
-                      ${isWarningTime ? 'text-red-600 animate-pulse' : 'text-yellow-900'}
-                    `}>
+                    <div className={`font-mono font-bold text-lg ${isWarningTime ? 'text-red-600 animate-pulse' : 'text-yellow-900'}`}>
                       {formatTime(countdown)}
                     </div>
                   </div>
@@ -66,15 +59,15 @@ export function ModbusSimulator({ countdown, shouldRefresh }: ModbusSimulatorPro
           </div>
         </div>
 
+        {/* Título */}
         <div className="text-center text-white py-4 lg:py-6">
           <h1 className="text-2xl lg:text-3xl font-bold mb-2">
-            Modbus TCP Multi-Sensor Simulator
+            Modbus TCP — Controlador de Nível de Água
           </h1>
           <p className="text-sm lg:text-base opacity-90 mb-4">
-            Simulate multiple industrial sensors with real-time Modbus TCP frame generation
+            Simulação de controle automático de nível com protocolo Modbus TCP
           </p>
-          
-          {/* GitHub Repository Section */}
+
           <div className="flex flex-col items-center gap-3 mt-4">
             <div className="flex items-center gap-2 text-white/90">
               <Github className="w-4 h-4 lg:w-5 lg:h-5" />
@@ -89,24 +82,12 @@ export function ModbusSimulator({ countdown, shouldRefresh }: ModbusSimulatorPro
               >
                 <Github className="w-4 h-4" />
                 <span className="font-medium text-sm">modbus-simulator</span>
-                <div className="hidden sm:flex gap-2 ml-2 border-l border-gray-600 pl-2">
-                  <img 
-                    src="https://img.shields.io/github/forks/tunasakar/modbus-simulator?style=flat&labelColor=24292F" 
-                    alt="Forks"
-                    className="h-4" 
-                  />
-                  <img 
-                    src="https://img.shields.io/github/stars/tunasakar/modbus-simulator?style=flat&labelColor=24292F" 
-                    alt="Stars"
-                    className="h-4" 
-                  />
-                </div>
               </a>
             </div>
           </div>
         </div>
-        
-        {/* Function Code Reference Toggle Button (Mobile) */}
+
+        {/* Referência de Códigos de Função (toggle em mobile) */}
         <div className="lg:hidden flex justify-center">
           <button
             onClick={() => setShowFunctionCodes(!showFunctionCodes)}
@@ -115,21 +96,13 @@ export function ModbusSimulator({ countdown, shouldRefresh }: ModbusSimulatorPro
             {showFunctionCodes ? 'Hide' : 'Show'} Function Codes
           </button>
         </div>
-
-        {/* Function Code Reference */}
         <div className={`${showFunctionCodes ? 'block' : 'hidden'} lg:block`}>
           <FunctionCodeHelp />
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {SENSOR_TYPES.map((sensor) => (
-            <SensorCard
-              key={sensor.id}
-              sensor={sensor}
-              shouldStop={shouldRefresh}
-            />
-          ))}
-        </div>
+        {/* Dashboard do Controlador de Nível */}
+        <WaterLevelDashboard shouldStop={shouldRefresh} />
+
       </div>
     </div>
   );

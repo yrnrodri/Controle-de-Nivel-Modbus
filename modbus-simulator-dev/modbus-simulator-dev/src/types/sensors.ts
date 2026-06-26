@@ -24,33 +24,9 @@ const DEFAULT_MODBUS_CONFIG = {
   autoIncrementTxId: true,
 };
 
+// Apenas o sensor de vazão permanece como sensor genérico configurável.
+// Nível e bomba são gerenciados exclusivamente pelo controlador automático.
 export const SENSOR_TYPES: SensorType[] = [
-  {
-    id: 'temperature',
-    label: 'Temperature Sensor',
-    config: {
-      min: 0,
-      max: 100,
-      unit: '°C',
-      name: 'Temperature',
-      parameterName: 'Temperature',
-      unitId: 1,
-      modbusConfig: { ...DEFAULT_MODBUS_CONFIG }
-    }
-  },
-  {
-    id: 'pressure',
-    label: 'Pressure Sensor',
-    config: {
-      min: 0,
-      max: 10,
-      unit: 'bar',
-      name: 'Pressure',
-      parameterName: 'Pressure',
-      unitId: 2,
-      modbusConfig: { ...DEFAULT_MODBUS_CONFIG }
-    }
-  },
   {
     id: 'flow',
     label: 'Flow Sensor',
